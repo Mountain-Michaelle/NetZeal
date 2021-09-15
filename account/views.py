@@ -17,7 +17,6 @@ def dashboard(request):
 
 
 
-
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
