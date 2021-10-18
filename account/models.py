@@ -1,9 +1,15 @@
 from django.db import models
+from django.conf import settings 
+# Create your models here.
 
-"""# Create your models here.
-class RegForm(models.Model):
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,
+                    on_delete=models.CASCADE) 
+    date_of_birth = models.DateField(blank=True, null=True)
+    photo = models.ImageField(upload_to='users/%Y/%m/%d/', blank=True)
+    program_level = models.CharField(max_length=10, blank=False)
 
-    username = models.CharField(max_length=15)
-    first_name = models.CharField(max_length=20)
-    email = models.EmailField() """
+    def __str__(self):
+        return 'Profile for user {}'.format(self.user.username)
+
 

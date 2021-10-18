@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from .models import Profile 
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -19,4 +20,17 @@ class UsersRegistrationForm(forms.ModelForm):
         cd = self.cleaned_data
         if cd['password'] != cd['confirm_password']:
             raise forms.ValidationError('Passord doesn\'t match.')
-        return cd['confirm_password']
+        return cd['confirm_password'] 
+
+
+from .models import Profile 
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email') 
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('date_of_birth', 'photo', 'program_level')
