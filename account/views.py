@@ -1,10 +1,12 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse 
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, UsersRegistrationForm, \
-                            UserEditForm, ProfileEditForm 
+                            UserEditForm, ProfileEditForm, \
+                            ImageCreationForm,   
 from django.contrib.auth.decorators import login_required
+from django.contrib import massages
 from .models import Profile 
 
 # Create your views here.
@@ -80,4 +82,21 @@ def edit(request):
     return render(request,
                     'account/edit.html',
                     {'user_form':user_form, 'profile_form':profile_form})
-                
+
+
+@login_required 
+def create_image(request):
+    if request.method == 'POST':
+        #form is sent
+        form = ImageCreationForm(data=request.POST)
+        if form.is_valid():
+            #check if form data is valid.
+            cd = form.cleaned_data
+            new_item = form.save(commit=False)
+
+            #assign current user to the item 
+            new_item.user = request.user 
+            new_item.save()
+            massages.success(request, 'Image added successfully')
+
+            #redirect to 

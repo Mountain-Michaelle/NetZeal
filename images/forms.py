@@ -26,7 +26,7 @@ class ImageCreationForm(forms.ModelForm):
             
             image = super(ImageCreationForm, self).save(commit=False)
             image_url = self.cleaned_data['url'] 
-            image_name = '{}.{}'.format(slugify, (image.title),
+            image_name = '{}.{}'.format(slugify(image.title),
                                     image_url.rsplit('.', 1)[1].lower())
             
             #download from the given url 
