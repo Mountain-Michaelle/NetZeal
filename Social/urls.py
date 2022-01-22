@@ -19,8 +19,9 @@ from django.conf import settings
 from django.conf.urls.static import static 
 
 urlpatterns = [
-    path('account/', include('account.urls')),
     path('admin/', admin.site.urls),
+    path('account/', include('account.urls')),
+    path('images/', include('images.urls', namespace='images')),
 ]
 
 if settings.DEBUG:
